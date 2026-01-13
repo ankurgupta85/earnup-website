@@ -13,44 +13,143 @@
             --text-main: #ffffff;
             --text-dim: #b0b0b0;
         }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg-dark); color: var(--text-main); margin: 0; }
-        nav { display: flex; justify-content: space-between; padding: 20px 10%; background: rgba(0,0,0,0.8); position: sticky; top: 0; z-index: 100; }
+
+        body {
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 10%;
+            background: rgba(0,0,0,0.9);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
         .logo { font-size: 1.5rem; font-weight: bold; color: var(--accent-orange); }
-        .hero { padding: 100px 10%; text-align: center; background: radial-gradient(circle at top right, #1a1a1a, #0f0f0f); }
-        .btn { padding: 12px 30px; border-radius: 5px; text-decoration: none; font-weight: bold; display: inline-block; transition: 0.3s; border: none; cursor: pointer; }
+
+        .hero {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 100px 10%;
+            background: radial-gradient(circle at top right, #1a1a1a, #0f0f0f);
+        }
+
+        .hero-text { flex: 1; min-width: 300px; }
+        .hero-image { flex: 1; text-align: center; min-width: 300px; }
+        .hero-image img { max-width: 100%; height: auto; border-radius: 20px; box-shadow: 0 0 20px rgba(255,140,0,0.2); }
+
+        .btn {
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            transition: 0.3s;
+            border: none;
+        }
         .btn-orange { background: var(--accent-orange); color: white; }
-        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; padding: 50px 10%; }
-        .card { background: var(--card-bg); padding: 30px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px); }
-        input, select, textarea { width: 100%; padding: 12px; margin-bottom: 15px; background: var(--card-bg); border: 1px solid #444; border-radius: 5px; color: white; box-sizing: border-box; }
+
+        .section-title { text-align: center; margin: 50px 0; color: var(--accent-teal); }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 0 10% 50px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .dashboard-preview {
+            text-align: center;
+            padding: 50px 10%;
+            background: #151515;
+        }
+        .dashboard-preview img { width: 100%; max-width: 900px; border-radius: 10px; border: 1px solid #333; }
+
+        .contact-container { max-width: 600px; margin: 0 auto; padding: 50px 10%; }
+        input, select, textarea { 
+            width: 100%; padding: 12px; margin-bottom: 15px; 
+            background: var(--card-bg); border: 1px solid #444; 
+            border-radius: 5px; color: white; box-sizing: border-box;
+        }
+
+        footer { text-align: center; padding: 40px; border-top: 1px solid #333; color: #666; font-size: 0.8rem; }
+        footer a { color: #666; text-decoration: none; margin: 0 10px; }
     </style>
 </head>
 <body>
-<nav><div class="logo">Earnup</div></nav>
-<header class="hero">
-    <h1>Elevate Your Business with Digital Loyalty</h1>
-    <p>Retaining a customer is 5x cheaper than acquiring a new one. </p>
-    <a href="#contact" class="btn btn-orange">Get Started</a>
-</header>
-<section class="features">
-    <div class="card">
-        <h3>Reward Systems </h3>
-        <ul>
-            <li>Point-Based: Earn per dollar spent. </li>
-            <li>Punch-Based: Digital "Buy 9 Get 1". </li>
-        </ul>
-    </div>
-</section>
-<section id="contact" style="padding: 80px 10%;">
-    <div style="max-width: 600px; margin: 0 auto;">
-        <h2 style="text-align:center;">Partner With Earnup</h2>
-        <form action="https://formspree.io/f/xpqqzyye" method="POST">
-            <input type="hidden" name="_next" value="https://YOUR_USERNAME.github.io/YOUR_REPO_NAME/success.html">
+
+    <nav>
+        <div class="logo">Earnup</div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-text">
+            <h1>Elevate Your Business with Digital Loyalty</h1>
+            <p>Retaining a customer is 5x cheaper than acquiring a new one. Bridge the gap between a single purchase and a lifelong relationship.</p>
+            <a href="#contact" class="btn btn-orange">Get Started</a>
+        </div>
+        <div class="hero-image">
+            <img src="hero.png" alt="Earnup Digital Reward Interface">
+        </div>
+    </header>
+
+    <h2 class="section-title">Flexible Reward Systems</h2>
+    <section class="features">
+        <div class="card">
+            <h3>Point-Based System</h3>
+            <p>Ideal for varied inventory. Customers earn points per dollar spent (e.g., $1 = 1 point).</p>
+        </div>
+        <div class="card">
+            <h3>Punch-Based System</h3>
+            <p>Perfect for high-frequency "buy 9 get 1" style items like coffee or haircuts.</p>
+        </div>
+    </section>
+
+    <section class="dashboard-preview">
+        <h2>Hyper-Local Acquisition & Analytics</h2>
+        <p>Turn data into a magnet for new foot traffic.</p>
+        <img src="dashboard.png" alt="Analytics Dashboard Heatmap">
+    </section>
+
+    <section id="contact" class="contact-container">
+        <h2 style="text-align: center;">Partner With Earnup</h2>
+        <form action="https://formspree.io/f/YOUR_ID" method="POST">
+            <input type="hidden" name="_next" value="https://ankurgupta85.github.io/earnup-website/success.html">
             <input type="text" name="name" placeholder="Full Name" required>
             <input type="email" name="email" placeholder="Business Email" required>
             <textarea name="message" placeholder="How can we help you grow?" rows="5"></textarea>
-            <button type="submit" class="btn btn-orange">Send Message</button>
+            <button type="submit" class="btn btn-orange" style="width: 100%;">Send Message</button>
         </form>
-    </div>
-</section>
+
+        <div style="text-align: center; margin-top: 40px;">
+            <p>Scan to see the customer experience:</p>
+            <img src="qr.png" alt="Earnup QR Code" style="width: 150px; border: 3px solid var(--accent-orange); border-radius: 10px;">
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Earnup - Innovate. Engage. Grow.</p>
+        <p>
+            <a href="terms.html">Terms of Service</a> | 
+            <a href="privacy.html">Privacy Policy</a>
+        </p>
+    </footer>
+
 </body>
-</html>
