@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earnup - Digital Loyalty Rewards</title>
+    <style>
+        :root {
+            --bg-dark: #0f0f0f;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --accent-orange: #ff8c00;
+            --accent-teal: #00ced1;
+            --text-main: #ffffff;
+            --text-dim: #b0b0b0;
+        }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg-dark); color: var(--text-main); margin: 0; }
+        nav { display: flex; justify-content: space-between; padding: 20px 10%; background: rgba(0,0,0,0.8); position: sticky; top: 0; z-index: 100; }
+        .logo { font-size: 1.5rem; font-weight: bold; color: var(--accent-orange); }
+        .hero { padding: 100px 10%; text-align: center; background: radial-gradient(circle at top right, #1a1a1a, #0f0f0f); }
+        .btn { padding: 12px 30px; border-radius: 5px; text-decoration: none; font-weight: bold; display: inline-block; transition: 0.3s; border: none; cursor: pointer; }
+        .btn-orange { background: var(--accent-orange); color: white; }
+        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; padding: 50px 10%; }
+        .card { background: var(--card-bg); padding: 30px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px); }
+        input, select, textarea { width: 100%; padding: 12px; margin-bottom: 15px; background: var(--card-bg); border: 1px solid #444; border-radius: 5px; color: white; box-sizing: border-box; }
+    </style>
+</head>
+<body>
+<nav><div class="logo">Earnup</div></nav>
+<header class="hero">
+    <h1>Elevate Your Business with Digital Loyalty</h1>
+    <p>Retaining a customer is 5x cheaper than acquiring a new one. </p>
+    <a href="#contact" class="btn btn-orange">Get Started</a>
+</header>
+<section class="features">
+    <div class="card">
+        <h3>Reward Systems </h3>
+        <ul>
+            <li>Point-Based: Earn per dollar spent. </li>
+            <li>Punch-Based: Digital "Buy 9 Get 1". </li>
+        </ul>
+    </div>
+</section>
+<section id="contact" style="padding: 80px 10%;">
+    <div style="max-width: 600px; margin: 0 auto;">
+        <h2 style="text-align:center;">Partner With Earnup</h2>
+        <form action="https://formspree.io/f/xpqqzyye" method="POST">
+            <input type="hidden" name="_next" value="https://YOUR_USERNAME.github.io/YOUR_REPO_NAME/success.html">
+            <input type="text" name="name" placeholder="Full Name" required>
+            <input type="email" name="email" placeholder="Business Email" required>
+            <textarea name="message" placeholder="How can we help you grow?" rows="5"></textarea>
+            <button type="submit" class="btn btn-orange">Send Message</button>
+        </form>
+    </div>
+</section>
+</body>
+</html>
