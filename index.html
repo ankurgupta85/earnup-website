@@ -73,8 +73,33 @@
         #toast { visibility: hidden; min-width: 200px; background-color: var(--accent); color: #000; text-align: center; border-radius: 8px; padding: 12px; position: fixed; z-index: 1000; left: 50%; bottom: 20px; transform: translateX(-50%); font-weight: bold; font-size: 0.9rem; }
         #toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
 
-        footer { padding: 30px; text-align: center; color: var(--text-dim); border-top: 1px solid #333; font-size: 0.8rem; }
-        
+footer { 
+    padding: 60px 5%; 
+    text-align: center; 
+    color: var(--text-dim); 
+    border-top: 1px solid rgba(255,255,255,0.1); 
+    background: rgba(0,0,0,0.3);
+    margin-top: 40px;
+}
+
+footer p {
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+}
+
+footer a { 
+    color: var(--accent); /* This will be Teal or Orange based on theme */
+    text-decoration: none; 
+    margin: 0 15px; 
+    font-weight: bold;
+    transition: color 0.3s ease, border-bottom 0.3s ease;
+    border-bottom: 1px solid transparent;
+}
+
+footer a:hover { 
+    color: var(--text-main); 
+    border-bottom: 1px solid var(--accent);
+}        
         /* Desktop Adjustments */
         @media (min-width: 768px) {
             nav { padding: 20px 10%; }
@@ -158,9 +183,13 @@
 
     <div id="toast">Success! Message Sent.</div>
 
-    <footer>
-        <p>&copy; 2026 Earnup | <a href="terms.html">Terms</a> | <a href="privacy.html">Privacy</a></p>
-    </footer>
+ <footer style="position: relative; z-index: 10;">
+    <p>&copy; 2026 Earnup. All rights reserved.</p>
+    <div>
+        <a href="terms.html">Terms of Service</a>
+        <a href="privacy.html">Privacy Policy</a>
+    </div>
+</footer>
 
     <script>
         function showAudience(type) {
