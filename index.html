@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Earnup - Digital Loyalty Rewards</title>
+    <link rel="icon" type="image/png" href="favicon.png">
     <style>
         :root {
-            /* Default Business Theme Variables */
             --bg-dark: #0f0f0f;
             --accent: #00ced1; /* Teal */
             --accent-secondary: #ff8c00; /* Orange */
@@ -16,11 +16,10 @@
             --transition: 0.5s ease;
         }
 
-        /* Customer Theme Overrides */
         .theme-customer {
-            --accent: #ff8c00; /* Orange */
-            --accent-secondary: #9d50bb; /* Purple */
-            --bg-dark: #120d1a; /* Deep Purple Black */
+            --accent: #ff8c00; 
+            --accent-secondary: #9d50bb;
+            --bg-dark: #120d1a;
         }
 
         body { 
@@ -30,290 +29,193 @@
             margin: 0;
             transition: background-color var(--transition);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* Navigation */
         nav { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center;
-            padding: 20px 10%; 
-            background: rgba(0,0,0,0.8); 
-            position: sticky; 
-            top: 0; 
-            z-index: 100;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 5%; background: rgba(0,0,0,0.9); 
+            position: sticky; top: 0; z-index: 100;
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-        .logo { font-size: 1.5rem; font-weight: bold; color: var(--accent-secondary); }
+        .logo { font-size: 1.3rem; font-weight: bold; color: var(--accent-secondary); text-decoration: none; }
 
-        /* Audience Toggle */
-        .toggle-container { 
-            text-align: center; 
-            padding: 30px; 
-            background: rgba(255,255,255,0.02); 
-        }
+        .toggle-container { text-align: center; padding: 20px 10px; background: rgba(255,255,255,0.02); }
         .toggle-btn {
-            border: 2px solid var(--accent);
-            color: var(--text-main);
-            background: transparent;
-            padding: 12px 30px;
-            margin: 5px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s;
+            border: 2px solid var(--accent); color: var(--text-main); background: transparent;
+            padding: 10px 20px; margin: 5px; border-radius: 50px; cursor: pointer;
+            font-weight: bold; transition: all 0.3s; font-size: 0.9rem;
         }
-        .toggle-btn.active {
-            background: var(--accent);
-            color: #000;
-            box-shadow: 0 0 20px var(--accent);
+        .toggle-btn.active { background: var(--accent); color: #000; box-shadow: 0 0 15px var(--accent); }
+
+        .hero { display: flex; flex-wrap: wrap; align-items: center; padding: 40px 5%; gap: 30px; min-height: 50vh; }
+        .hero-text { flex: 1; min-width: 300px; text-align: center; }
+        .hero-text h1 { font-size: 2.2rem; line-height: 1.2; margin-bottom: 15px; }
+        .hero-img { flex: 1; min-width: 300px; text-align: center; }
+        .hero-img img { width: 100%; max-width: 400px; border-radius: 15px; border: 2px solid var(--accent); }
+
+        .industry-section { padding: 40px 5%; background: rgba(255,255,255,0.01); text-align: center; }
+        .industry-card { 
+            background: var(--card-bg); padding: 20px; border-radius: 20px; border: 1px solid #333; 
+            max-width: 800px; margin: 0 auto; text-align: left; display: flex; 
+            flex-direction: column; gap: 20px;
         }
 
-        /* Hero Section */
-        .hero { 
-            display: flex; 
-            flex-wrap: wrap; 
-            align-items: center; 
-            padding: 80px 10%; 
-            gap: 50px;
-            min-height: 60vh;
-        }
-        .hero-text { flex: 1; min-width: 300px; }
-        .hero-text h1 { font-size: 3rem; line-height: 1.1; margin-bottom: 20px; }
-        .hero-text p { font-size: 1.2rem; color: var(--text-dim); margin-bottom: 30px; }
+        .contact-section { padding: 60px 5%; background: rgba(0,0,0,0.2); }
+        form { max-width: 500px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; }
+        input, textarea { padding: 12px; background: var(--card-bg); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; color: white; font-size: 1rem; width: 100%; box-sizing: border-box; }
         
-        .hero-img { flex: 1; min-width: 300px; text-align: right; }
-        .hero-img img { 
-            width: 100%; 
-            max-width: 500px;
-            border-radius: 20px; 
-            border: 2px solid var(--accent);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            transition: border var(--transition);
+        .btn-submit { background: var(--accent-secondary); color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; gap: 10px; }
+
+        #spinner { display: none; width: 18px; height: 18px; border: 3px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: #fff; animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        #toast { visibility: hidden; min-width: 200px; background-color: var(--accent); color: #000; text-align: center; border-radius: 8px; padding: 12px; position: fixed; z-index: 1000; left: 50%; bottom: 20px; transform: translateX(-50%); font-weight: bold; font-size: 0.9rem; }
+        #toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
+
+        footer { padding: 30px; text-align: center; color: var(--text-dim); border-top: 1px solid #333; font-size: 0.8rem; }
+        
+        /* Desktop Adjustments */
+        @media (min-width: 768px) {
+            nav { padding: 20px 10%; }
+            .hero { padding: 80px 10%; text-align: left; }
+            .hero-text { text-align: left; }
+            .hero-text h1 { font-size: 3.5rem; }
+            .industry-card { flex-direction: row; padding: 40px; }
+            .industry-card div:last-child { border-left: 1px solid #333; padding-left: 30px; }
         }
 
-        /* Features */
-        .features { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-            gap: 25px; 
-            padding: 60px 10%; 
-        }
-        .card { 
-            background: var(--card-bg); 
-            padding: 35px; 
-            border-radius: 20px; 
-            border: 1px solid rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            transition: transform 0.3s;
-        }
-        .card:hover { transform: translateY(-10px); }
-        .card h3 { color: var(--accent); margin-top: 0; }
-
-        /* Form Styling */
-        .contact-section { padding: 80px 10%; background: rgba(0,0,0,0.2); }
-        form { max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; }
-        input, textarea, select {
-            padding: 15px;
-            background: var(--card-bg);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 8px;
-            color: white;
-            font-size: 1rem;
-        }
-        .btn-submit {
-            background: var(--accent-secondary);
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 1.1rem;
-        }
-
-        /* Footer */
-        footer { padding: 40px; text-align: center; color: var(--text-dim); border-top: 1px solid #333; }
-        footer a { color: var(--accent); text-decoration: none; margin: 0 10px; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .animate { animation: fadeIn 0.6s forwards; }
+        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 20px; opacity: 1;} }
+        @keyframes fadeout { from {bottom: 20px; opacity: 1;} to {bottom: 0; opacity: 0;} }
     </style>
 </head>
-<body class="theme-business">
+<body>
 
-    <nav>
-        <div class="logo">Earnup</div>
-    </nav>
+    <nav><a href="#" class="logo">Earnup</a></nav>
 
     <div class="toggle-container">
-        <button id="btn-biz" class="toggle-btn active" onclick="showSection('biz')">For Business Owners</button>
-        <button id="btn-cust" class="toggle-btn" onclick="showSection('cust')">For Your Customers</button>
+        <button id="btn-biz" class="toggle-btn active" onclick="showAudience('biz')">Business Owners</button>
+        <button id="btn-cust" class="toggle-btn" onclick="showAudience('cust')">Customers</button>
     </div>
 
-    <main id="main-content">
-        <div id="biz" class="hero animate">
+    <main>
+        <div id="hero-biz" class="hero">
             <div class="hero-text">
-                <h1>Scale Your Revenue With Data-Driven Loyalty</h1>
-                <p>Retention is 5x cheaper than acquisition. Use predictive analytics to stop churn before it happens and maximize customer lifetime value.</p>
-                <a href="#contact" class="toggle-btn active" style="text-decoration:none; display:inline-block; text-align:center;">Request a Demo</a>
+                <h1>Scale Revenue with Data-Driven Loyalty</h1>
+                <p>Retention is 5x cheaper than acquisition. Automate your growth.</p>
+                <button onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})" class="toggle-btn active">Get Started</button>
             </div>
-            <div class="hero-img">
-                <img src="dashboard.png" alt="Analytics Dashboard Mockup">
-            </div>
+            <div class="hero-img"><img src="dashboard.png" alt="Business Dashboard"></div>
         </div>
 
-        <div id="cust" class="hero animate" style="display: none;">
+        <div id="hero-cust" class="hero" style="display: none;">
             <div class="hero-text">
-                <h1>Get Rewarded for Doing What You Love</h1>
-                <p>No physical cards, no clutter. Just simple rewards at your favorite local spots. Unlock 15% off and VIP experiences today.</p>
-                <a href="#contact" class="toggle-btn active" style="text-decoration:none; display:inline-block; text-align:center;">Start Earning</a>
+                <h1>Get Rewarded for Being You</h1>
+                <p>No cards, no clutter. Just rewards at your favorite local spots.</p>
+                <button onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})" class="toggle-btn active">Join Now</button>
             </div>
-            <div class="hero-img">
-                <img src="hero-phone.png" alt="Customer Reward App">
-            </div>
+            <div class="hero-img"><img src="hero-phone.png" alt="Customer App"></div>
         </div>
     </main>
 
-    <section class="features">
-        <div class="card">
-            <h3 id="feat-1-title">Predictive Insights</h3>
-            <p id="feat-1-desc">Identify at-risk customers and automate re-engagement before they churn.</p>
+    <section id="industry-section" class="industry-section">
+        <h2 style="color: var(--accent); font-size: 1.5rem;">Your Industry Solution</h2>
+        <div style="display: flex; justify-content: center; gap: 5px; margin-bottom: 25px; flex-wrap: wrap;">
+            <button class="toggle-btn active" style="padding: 8px 15px; font-size: 0.8rem;" onclick="updateIndustry('coffee', this)">☕ Coffee</button>
+            <button class="toggle-btn" style="padding: 8px 15px; font-size: 0.8rem;" onclick="updateIndustry('gym', this)">💪 Gyms</button>
+            <button class="toggle-btn" style="padding: 8px 15px; font-size: 0.8rem;" onclick="updateIndustry('retail', this)">🛍️ Retail</button>
         </div>
-        <div class="card">
-            <h3 id="feat-2-title">Geo-Fencing</h3>
-            <p id="feat-2-desc">Trigger push notifications and rewards when customers are near your shop.</p>
-        </div>
-        <div class="card">
-            <h3 id="feat-3-title">Zero Friction</h3>
-            <p id="feat-3-desc">Syncs seamlessly with your existing hardware. No physical cards to print or lose.</p>
+        <div class="industry-card">
+            <div style="flex: 1;">
+                <h3 id="ind-title" style="margin-top: 0;">The "Morning Habit" Model</h3>
+                <p id="ind-desc" style="font-size: 0.9rem;">Drive daily revenue with digital punch cards.</p>
+                <ul id="ind-points" style="color: var(--text-dim); font-size: 0.9rem; padding-left: 20px;">
+                    <li>Buy 9, Get 1 Free</li>
+                    <li>Automated Morning Alerts</li>
+                </ul>
+            </div>
+            <div style="text-align: center;">
+                <p style="font-size: 0.7rem; color: var(--accent); margin: 0;">PROJECTION</p>
+                <p id="ind-stat" style="font-size: 2.2rem; font-weight: bold; margin: 5px 0;">+22%</p>
+                <p style="color: var(--text-dim); font-size: 0.8rem; margin: 0;">Retention Increase</p>
+            </div>
         </div>
     </section>
 
     <section id="contact" class="contact-section">
-        <h2 style="text-align:center;">Partner With Earnup</h2>
-        <form action="https://formspree.io/f/xpqqzyye" method="POST" id="lead-form">
+        <h2 style="text-align:center; font-size: 1.5rem;">Ready to Grow?</h2>
+        <form id="lead-form" action="https://formspree.io/f/YOUR_ID_HERE" method="POST">
             <input type="hidden" id="lead_type" name="lead_type" value="Business Owner">
-            
             <input type="text" name="name" placeholder="Full Name" required>
             <input type="email" name="email" placeholder="Email Address" required>
-            <textarea name="message" placeholder="Tell us about your needs..." rows="5"></textarea>
-            
-            <button type="submit" class="btn-submit">Send Message</button>
+            <textarea name="message" placeholder="How can we help?" rows="4" required></textarea>
+            <button type="submit" class="btn-submit" id="submit-btn">
+                <span id="btn-text">Send Message</span>
+                <div id="spinner"></div>
+            </button>
         </form>
     </section>
 
+    <div id="toast">Success! Message Sent.</div>
+
     <footer>
-        <p>&copy; 2026 Earnup - Innovate. Engage. Grow.</p>
-        <p>
-            <a href="terms.html">Terms</a> | 
-            <a href="privacy.html">Privacy</a>
-        </p>
+        <p>&copy; 2026 Earnup | <a href="terms.html">Terms</a> | <a href="privacy.html">Privacy</a></p>
     </footer>
 
     <script>
+        function showAudience(type) {
+            const isBiz = type === 'biz';
+            document.body.classList.toggle('theme-customer', !isBiz);
+            document.getElementById('hero-biz').style.display = isBiz ? 'flex' : 'none';
+            document.getElementById('hero-cust').style.display = isBiz ? 'none' : 'flex';
+            document.getElementById('industry-section').style.display = isBiz ? 'block' : 'none';
+            document.getElementById('btn-biz').classList.toggle('active', isBiz);
+            document.getElementById('btn-cust').classList.toggle('active', !isBiz);
+            document.getElementById('lead_type').value = isBiz ? "Business Owner" : "Customer";
+        }
+
+        const indData = {
+            coffee: { t: 'The "Morning Habit" Model', d: 'Drive daily revenue with digital punch cards.', p: '<li>Buy 9, Get 1 Free</li><li>Morning Push Alerts</li>', s: '+22%' },
+            gym: { t: 'The "Retention" Model', d: 'Reward members for consistent attendance.', p: '<li>Check-in Points</li><li>Re-engagement Alerts</li>', s: '-15% Churn' },
+            retail: { t: 'The "Basket Size" Model', d: 'Incentivize higher spending per visit.', p: '<li>Tiered VIP Levels</li><li>Early Access to Sales</li>', s: '+35% ROI' }
+        };
+        
+        function updateIndustry(type, btn) {
+            const data = indData[type];
+            document.getElementById('ind-title').innerText = data.t;
+            document.getElementById('ind-desc').innerText = data.d;
+            document.getElementById('ind-points').innerHTML = data.p;
+            document.getElementById('ind-stat').innerText = data.s;
+            const btns = btn.parentElement.querySelectorAll('button');
+            btns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
 
         const form = document.getElementById('lead-form');
-const toast = document.getElementById('toast');
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submit-btn');
+            const txt = document.getElementById('btn-text');
+            const spin = document.getElementById('spinner');
+            const toast = document.getElementById('toast');
 
-form.addEventListener('submit', async (e) => {
-    e.preventDefault(); // Prevents the page from redirecting
-    
-    const data = new FormData(form);
-    
-    try {
-        const response = await fetch(form.action, {
-            method: 'POST',
-            body: data,
-            headers: { 'Accept': 'application/json' }
-        });
+            btn.disabled = true; txt.innerText = "Sending..."; spin.style.display = "block";
 
-        if (response.ok) {
-            // Show Toast
-            toast.className = "show";
-            setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
-            
-            // Reset the form
-            form.reset();
-        } else {
-            alert("Oops! There was a problem submitting your form.");
-        }
-    } catch (error) {
-        alert("Error: Could not connect to the server.");
-    }
-});
-        function showSection(type) {
-            const body = document.body;
-            const biz = document.getElementById('biz');
-            const cust = document.getElementById('cust');
-            const btnBiz = document.getElementById('btn-biz');
-            const btnCust = document.getElementById('btn-cust');
-            const leadInput = document.getElementById('lead_type');
-
-            // Feature Text Elements
-            const f1T = document.getElementById('feat-1-title');
-            const f1D = document.getElementById('feat-1-desc');
-            const f2T = document.getElementById('feat-2-title');
-            const f2D = document.getElementById('feat-2-desc');
-
-            if (type === 'biz') {
-                body.classList.remove('theme-customer');
-                biz.style.display = 'flex';
-                cust.style.display = 'none';
-                btnBiz.classList.add('active');
-                btnCust.classList.remove('active');
-                leadInput.value = "Business Owner";
-
-                // Reset B2B Features
-                f1T.innerText = "Predictive Insights";
-                f1D.innerText = "Identify at-risk customers and automate re-engagement.";
-                f2T.innerText = "Geo-Fencing";
-                f2D.innerText = "Trigger push notifications and rewards when customers are near your shop.";
-            } else {
-                body.classList.add('theme-customer');
-                biz.style.display = 'none';
-                cust.style.display = 'flex';
-                btnBiz.classList.remove('active');
-                btnCust.classList.add('active');
-                leadInput.value = "Individual Customer";
-
-                // Swap to B2C Features
-                f1T.innerText = "Digital Wallet";
-                f1D.innerText = "All your favorite rewards and punch cards in one secure, digital place.";
-                f2T.innerText = "VIP Perks";
-                f2D.innerText = "Get exclusive early access to products and special event invitations.";
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: { 'Accept': 'application/json' }
+                });
+                if (response.ok) {
+                    toast.className = "show";
+                    setTimeout(() => { toast.className = ""; }, 3000);
+                    form.reset();
+                } else { throw new Error(); }
+            } catch { alert("Submission failed."); } finally {
+                btn.disabled = false; txt.innerText = "Send Message"; spin.style.display = "none";
             }
-        }
+        });
     </script>
-
-    <div id="toast" style="
-    visibility: hidden;
-    min-width: 250px;
-    background-color: var(--accent);
-    color: #000;
-    text-align: center;
-    border-radius: 8px;
-    padding: 16px;
-    position: fixed;
-    z-index: 1000;
-    left: 50%;
-    bottom: 30px;
-    transform: translateX(-50%);
-    font-weight: bold;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-">
-    Success! Your message has been sent.
-</div>
-
-<style>
-    /* Animation for the Toast */
-    #toast.show {
-        visibility: visible;
-        animation: fadein 0.5s, fadeout 0.5s 2.5s;
-    }
-
-    @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
-    @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
-</style>
 </body>
 </html>
