@@ -6,150 +6,254 @@
     <title>Earnup - Digital Loyalty Rewards</title>
     <style>
         :root {
+            /* Default Business Theme Variables */
             --bg-dark: #0f0f0f;
+            --accent: #00ced1; /* Teal */
+            --accent-secondary: #ff8c00; /* Orange */
             --card-bg: rgba(255, 255, 255, 0.05);
-            --accent-orange: #ff8c00;
-            --accent-teal: #00ced1;
             --text-main: #ffffff;
             --text-dim: #b0b0b0;
+            --transition: 0.5s ease;
         }
 
-        body {
+        /* Customer Theme Overrides */
+        .theme-customer {
+            --accent: #ff8c00; /* Orange */
+            --accent-secondary: #9d50bb; /* Purple */
+            --bg-dark: #120d1a; /* Deep Purple Black */
+        }
+
+        body { 
             font-family: 'Segoe UI', Roboto, sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-main);
+            background-color: var(--bg-dark); 
+            color: var(--text-main); 
             margin: 0;
+            transition: background-color var(--transition);
             line-height: 1.6;
         }
 
-        nav {
-            display: flex;
-            justify-content: space-between;
+        /* Navigation */
+        nav { 
+            display: flex; 
+            justify-content: space-between; 
             align-items: center;
-            padding: 20px 10%;
-            background: rgba(0,0,0,0.9);
-            position: sticky;
-            top: 0;
+            padding: 20px 10%; 
+            background: rgba(0,0,0,0.8); 
+            position: sticky; 
+            top: 0; 
             z-index: 100;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
+        .logo { font-size: 1.5rem; font-weight: bold; color: var(--accent-secondary); }
 
-        .logo { font-size: 1.5rem; font-weight: bold; color: var(--accent-orange); }
-
-        .hero {
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            padding: 100px 10%;
-            background: radial-gradient(circle at top right, #1a1a1a, #0f0f0f);
+        /* Audience Toggle */
+        .toggle-container { 
+            text-align: center; 
+            padding: 30px; 
+            background: rgba(255,255,255,0.02); 
         }
-
-        .hero-text { flex: 1; min-width: 300px; }
-        .hero-image { flex: 1; text-align: center; min-width: 300px; }
-        .hero-image img { max-width: 100%; height: auto; border-radius: 20px; box-shadow: 0 0 20px rgba(255,140,0,0.2); }
-
-        .btn {
+        .toggle-btn {
+            border: 2px solid var(--accent);
+            color: var(--text-main);
+            background: transparent;
             padding: 12px 30px;
-            border-radius: 5px;
-            text-decoration: none;
+            margin: 5px;
+            border-radius: 50px;
+            cursor: pointer;
             font-weight: bold;
-            display: inline-block;
-            transition: 0.3s;
-            border: none;
+            transition: all 0.3s;
         }
-        .btn-orange { background: var(--accent-orange); color: white; }
-
-        .section-title { text-align: center; margin: 50px 0; color: var(--accent-teal); }
-
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            padding: 0 10% 50px;
+        .toggle-btn.active {
+            background: var(--accent);
+            color: #000;
+            box-shadow: 0 0 20px var(--accent);
         }
 
-        .card {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 15px;
+        /* Hero Section */
+        .hero { 
+            display: flex; 
+            flex-wrap: wrap; 
+            align-items: center; 
+            padding: 80px 10%; 
+            gap: 50px;
+            min-height: 60vh;
+        }
+        .hero-text { flex: 1; min-width: 300px; }
+        .hero-text h1 { font-size: 3rem; line-height: 1.1; margin-bottom: 20px; }
+        .hero-text p { font-size: 1.2rem; color: var(--text-dim); margin-bottom: 30px; }
+        
+        .hero-img { flex: 1; min-width: 300px; text-align: right; }
+        .hero-img img { 
+            width: 100%; 
+            max-width: 500px;
+            border-radius: 20px; 
+            border: 2px solid var(--accent);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: border var(--transition);
+        }
+
+        /* Features */
+        .features { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 25px; 
+            padding: 60px 10%; 
+        }
+        .card { 
+            background: var(--card-bg); 
+            padding: 35px; 
+            border-radius: 20px; 
             border: 1px solid rgba(255,255,255,0.1);
             backdrop-filter: blur(10px);
+            transition: transform 0.3s;
+        }
+        .card:hover { transform: translateY(-10px); }
+        .card h3 { color: var(--accent); margin-top: 0; }
+
+        /* Form Styling */
+        .contact-section { padding: 80px 10%; background: rgba(0,0,0,0.2); }
+        form { max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; }
+        input, textarea, select {
+            padding: 15px;
+            background: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+        }
+        .btn-submit {
+            background: var(--accent-secondary);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1.1rem;
         }
 
-        .dashboard-preview {
-            text-align: center;
-            padding: 50px 10%;
-            background: #151515;
-        }
-        .dashboard-preview img { width: 100%; max-width: 900px; border-radius: 10px; border: 1px solid #333; }
+        /* Footer */
+        footer { padding: 40px; text-align: center; color: var(--text-dim); border-top: 1px solid #333; }
+        footer a { color: var(--accent); text-decoration: none; margin: 0 10px; }
 
-        .contact-container { max-width: 600px; margin: 0 auto; padding: 50px 10%; }
-        input, select, textarea { 
-            width: 100%; padding: 12px; margin-bottom: 15px; 
-            background: var(--card-bg); border: 1px solid #444; 
-            border-radius: 5px; color: white; box-sizing: border-box;
-        }
-
-        footer { text-align: center; padding: 40px; border-top: 1px solid #333; color: #666; font-size: 0.8rem; }
-        footer a { color: #666; text-decoration: none; margin: 0 10px; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .animate { animation: fadeIn 0.6s forwards; }
     </style>
 </head>
-<body>
+<body class="theme-business">
 
     <nav>
         <div class="logo">Earnup</div>
     </nav>
 
-    <header class="hero">
-        <div class="hero-text">
-            <h1>Elevate Your Business with Digital Loyalty</h1>
-            <p>Retaining a customer is 5x cheaper than acquiring a new one. Bridge the gap between a single purchase and a lifelong relationship.</p>
-            <a href="#contact" class="btn btn-orange">Get Started</a>
-        </div>
-        <div class="hero-image">
-            <img src="hero-phone.png" alt="Earnup Digital Reward Interface">
-        </div>
-    </header>
+    <div class="toggle-container">
+        <button id="btn-biz" class="toggle-btn active" onclick="showSection('biz')">For Business Owners</button>
+        <button id="btn-cust" class="toggle-btn" onclick="showSection('cust')">For Your Customers</button>
+    </div>
 
-    <h2 class="section-title">Flexible Reward Systems</h2>
+    <main id="main-content">
+        <div id="biz" class="hero animate">
+            <div class="hero-text">
+                <h1>Scale Your Revenue With Data-Driven Loyalty</h1>
+                <p>Retention is 5x cheaper than acquisition. Use predictive analytics to stop churn before it happens and maximize customer lifetime value.</p>
+                <a href="#contact" class="toggle-btn active" style="text-decoration:none; display:inline-block; text-align:center;">Request a Demo</a>
+            </div>
+            <div class="hero-img">
+                <img src="dashboard.png" alt="Analytics Dashboard Mockup">
+            </div>
+        </div>
+
+        <div id="cust" class="hero animate" style="display: none;">
+            <div class="hero-text">
+                <h1>Get Rewarded for Doing What You Love</h1>
+                <p>No physical cards, no clutter. Just simple rewards at your favorite local spots. Unlock 15% off and VIP experiences today.</p>
+                <a href="#contact" class="toggle-btn active" style="text-decoration:none; display:inline-block; text-align:center;">Start Earning</a>
+            </div>
+            <div class="hero-img">
+                <img src="hero-phone.png" alt="Customer Reward App">
+            </div>
+        </div>
+    </main>
+
     <section class="features">
         <div class="card">
-            <h3>Point-Based System</h3>
-            <p>Ideal for varied inventory. Customers earn points per dollar spent (e.g., $1 = 1 point).</p>
+            <h3 id="feat-1-title">Predictive Insights</h3>
+            <p id="feat-1-desc">Identify at-risk customers and automate re-engagement before they churn.</p>
         </div>
         <div class="card">
-            <h3>Punch-Based System</h3>
-            <p>Perfect for high-frequency "buy 9 get 1" style items like coffee or haircuts.</p>
+            <h3 id="feat-2-title">Geo-Fencing</h3>
+            <p id="feat-2-desc">Trigger push notifications and rewards when customers are near your shop.</p>
+        </div>
+        <div class="card">
+            <h3 id="feat-3-title">Zero Friction</h3>
+            <p id="feat-3-desc">Syncs seamlessly with your existing hardware. No physical cards to print or lose.</p>
         </div>
     </section>
 
-    <section class="dashboard-preview">
-        <h2>Hyper-Local Acquisition & Analytics</h2>
-        <p>Turn data into a magnet for new foot traffic.</p>
-        <img src="dashboard.png" alt="Analytics Dashboard Heatmap">
-    </section>
-
-    <section id="contact" class="contact-container">
-        <h2 style="text-align: center;">Partner With Earnup</h2>
-        <form action="https://formspree.io/f/YOUR_ID" method="POST">
-            <input type="hidden" name="_next" value="https://ankurgupta85.github.io/earnup-website/success.html">
+    <section id="contact" class="contact-section">
+        <h2 style="text-align:center;">Partner With Earnup</h2>
+        <form action="https://formspree.io/f/YOUR_ID_HERE" method="POST" id="lead-form">
+            <input type="hidden" id="lead_type" name="lead_type" value="Business Owner">
+            
             <input type="text" name="name" placeholder="Full Name" required>
-            <input type="email" name="email" placeholder="Business Email" required>
-            <textarea name="message" placeholder="How can we help you grow?" rows="5"></textarea>
-            <button type="submit" class="btn btn-orange" style="width: 100%;">Send Message</button>
+            <input type="email" name="email" placeholder="Email Address" required>
+            <textarea name="message" placeholder="Tell us about your needs..." rows="5"></textarea>
+            
+            <button type="submit" class="btn-submit">Send Message</button>
         </form>
-
-        <div style="text-align: center; margin-top: 40px;">
-            <p>Scan to see the customer experience:</p>
-            <img src="qr-code.png" alt="Earnup QR Code" style="width: 150px; border: 3px solid var(--accent-orange); border-radius: 10px;">
-        </div>
     </section>
 
     <footer>
         <p>&copy; 2026 Earnup - Innovate. Engage. Grow.</p>
         <p>
-            <a href="terms.html">Terms of Service</a> | 
-            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms</a> | 
+            <a href="privacy.html">Privacy</a>
         </p>
     </footer>
 
+    <script>
+        function showSection(type) {
+            const body = document.body;
+            const biz = document.getElementById('biz');
+            const cust = document.getElementById('cust');
+            const btnBiz = document.getElementById('btn-biz');
+            const btnCust = document.getElementById('btn-cust');
+            const leadInput = document.getElementById('lead_type');
+
+            // Feature Text Elements
+            const f1T = document.getElementById('feat-1-title');
+            const f1D = document.getElementById('feat-1-desc');
+            const f2T = document.getElementById('feat-2-title');
+            const f2D = document.getElementById('feat-2-desc');
+
+            if (type === 'biz') {
+                body.classList.remove('theme-customer');
+                biz.style.display = 'flex';
+                cust.style.display = 'none';
+                btnBiz.classList.add('active');
+                btnCust.classList.remove('active');
+                leadInput.value = "Business Owner";
+
+                // Reset B2B Features
+                f1T.innerText = "Predictive Insights";
+                f1D.innerText = "Identify at-risk customers and automate re-engagement.";
+                f2T.innerText = "Geo-Fencing";
+                f2D.innerText = "Trigger push notifications and rewards when customers are near your shop.";
+            } else {
+                body.classList.add('theme-customer');
+                biz.style.display = 'none';
+                cust.style.display = 'flex';
+                btnBiz.classList.remove('active');
+                btnCust.classList.add('active');
+                leadInput.value = "Individual Customer";
+
+                // Swap to B2C Features
+                f1T.innerText = "Digital Wallet";
+                f1D.innerText = "All your favorite rewards and punch cards in one secure, digital place.";
+                f2T.innerText = "VIP Perks";
+                f2D.innerText = "Get exclusive early access to products and special event invitations.";
+            }
+        }
+    </script>
 </body>
+</html>
