@@ -255,5 +255,35 @@
             }
         }
     </script>
+
+    <div id="toast" style="
+    visibility: hidden;
+    min-width: 250px;
+    background-color: var(--accent);
+    color: #000;
+    text-align: center;
+    border-radius: 8px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    bottom: 30px;
+    transform: translateX(-50%);
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+">
+    Success! Your message has been sent.
+</div>
+
+<style>
+    /* Animation for the Toast */
+    #toast.show {
+        visibility: visible;
+        animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    }
+
+    @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
+    @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+</style>
 </body>
 </html>
